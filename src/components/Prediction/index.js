@@ -9,6 +9,7 @@ export const Prediction = () => {
         { title: 'StepThree', component: <h1>hi</h1> },
         { title: 'StepFour', component: <h1>haha</h1> }
     ];
+    console.log("prediction")
     return (
         <section id="prediction">
             <MultiStep activeStep={1} showNavigation={true} steps={steps} />
