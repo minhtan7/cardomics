@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import apiService from '../../apiService'
 import "./style.css"
 import { Chart, registerables } from 'chart.js';
+import { slugify } from '../../utils/slugify'
 Chart.register(...registerables);
 
 export const NewsPage = () => {
@@ -54,12 +55,11 @@ export const NewsPage = () => {
         try {
             const data = await apiService.get("/set_data/LEGENDARY%20DUELISTS:%20DUELS%20FROM%20THE%20DEEP")
             console.log(data.data.cards)
-            data.data.cards.forEach(async (card) => {
-                // const image = await apiService.get(`/card_image/${card.numbers[0].name}`)
-                // console.log(card)
-                card = { ...card, imageUrl: "https://static-7.studiobebop.net/ygo_data/card_images/Crossrose_Dragon.jpg" }
+            const cards = data.data.cards.map((card) => {
+                return { ...card, imageUrl: `https://static-7.studiobebop.net/ygo_data/card_images/${slugify(card.name)}.jpg` }
             })
-            setData(data.data.cards)
+            console.log(cards)
+            setData(cards)
             setShowDeck(!showDeck)
             setShowEssay(false)
         } catch (error) {
@@ -71,8 +71,6 @@ export const NewsPage = () => {
         setShowEssay(!showEssay)
         setShowDeck(true)
     }
-
-
 
     return (
         <section id="news" >
@@ -122,7 +120,7 @@ export const NewsPage = () => {
                             <Col md={3} className='mb-4 single-card position-relative' key={index}>
                                 <div className='single-card position-relative' onClick={() => handleShow(card)}>
                                     <div className='position-relative w-100 h-100'>
-                                        <img src={card.imageUrl ? card.imageUrl : "https://static-7.studiobebop.net/ygo_data/card_images/Crossrose_Dragon.jpg"} alt={card.name} />
+                                        <img src={card.imageUrl} alt={card.name} />
                                     </div>
                                     <div className='single-card-shadow'>
                                         <h3>{card.name}</h3>

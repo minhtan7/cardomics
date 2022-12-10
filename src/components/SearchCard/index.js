@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
+import { slugify } from '../../utils/slugify'
 import { slugTranslate } from '../../utils/slugTranslate'
 import './style.css'
 
@@ -54,7 +55,7 @@ export const SearchCard = () => {
         try {
             e.preventDefault()
             const data = await fetchCard(search)
-            const image = await fetchImage(data.name)
+            const image = `https://static-7.studiobebop.net/ygo_data/card_images/${slugify(data.name)}.jpg`
             setCard({ ...data, imageUrl: image })
         } catch (error) {
             setError(error.message)
