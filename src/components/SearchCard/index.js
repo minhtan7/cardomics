@@ -43,7 +43,7 @@ export const SearchCard = () => {
 
     const fetchImage = async (name) => {
         try {
-            let url = `http://yugiohprices.com/api/card_image/${name}`
+            let url = `https://yugiohprices.com/api/card_image/${name}`
             const data = await fetch(url)
             return data.url
         } catch (error) {
