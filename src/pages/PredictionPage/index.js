@@ -2,7 +2,7 @@ import React from 'react'
 import MultiStep from 'react-multistep'
 import "./style.css"
 
-export const Prediction = () => {
+export const PredictionPage = () => {
     const steps = [
         { title: 'StepOne', component: <h1>heeloo</h1> },
         { title: 'StepTwo', component: <h1>he</h1> },

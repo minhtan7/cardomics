@@ -1,7 +1,17 @@
 .header {
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: var(--primary);
+  /* background-color: transparent; */
+  color: white;
   padding: 20px 10px;
+  position: fixed;
+  z-index: 100;
+  width: 100%;
+  transition: all .5s ease-in-out;
+}
+
+.scroll {
+  background-color: transparent;
 }
 
 .header a {
@@ -20,13 +30,13 @@
   font-weight: bold;
 }
 
-.header a:hover {
+/* .header a:hover {
   background-color: #ddd;
   color: black;
-}
+} */
 
 .header a.active {
-  background-color: dodgerblue;
+  background-color: var(--secondary);
   color: white;
 }
 

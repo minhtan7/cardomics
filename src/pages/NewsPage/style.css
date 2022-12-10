@@ -1,0 +1,45 @@
+#news {
+    /* background-color: rgba(128, 128, 128, 0.128); */
+    /* margin-top: 3rem; */
+}
+
+.caption-bg{
+    padding: 2rem;
+    color: white;
+    background: rgb(0 0 0 / 56%);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgb(0 0 0 / 10%);
+    backdrop-filter: blur(13.9px);
+    -webkit-backdrop-filter: blur(13.9px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+}
+
+.single-card:hover .single-card-shadow{
+    opacity: 1;
+    transition-duration: 0.3s;
+}
+.single-card{
+    /* width: 345px; */
+    height: 440px;
+}
+
+.single-card-shadow{
+    position: absolute;
+    width: 100%;
+    height: inherit;
+    background-color: rgba(0, 0, 0, 0.541);
+    opacity: 0;
+    transition-duration: 0.3s;
+    color: white;
+    padding: 4rem 2rem;
+    top: 0;
+    left: 0;
+}
+
+.single-card img{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}

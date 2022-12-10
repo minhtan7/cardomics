@@ -1,17 +1,25 @@
 
+
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import { Header } from './components/Header';
-import { News } from './components/News';
-import { Prediction } from './components/Prediction';
-import { SearchCard } from './components/SearchCard';
+import MainLayout from './layout/MainLayout';
+import { HomePage } from './pages/HomePage';
+import { NewsPage } from './pages/NewsPage';
+import { PredictionPage } from './pages/PredictionPage';
+
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <SearchCard />
-      <News />
-      <Prediction />
+      <Routes>
+        <Route path="/" element={<MainLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/prediction" element={<PredictionPage />} />
+        </Route>
+
+      </Routes>
+
     </div>
   );
 }
