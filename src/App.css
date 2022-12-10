@@ -1,6 +1,6 @@
 :root{
-  --primary: #1B1A17;
-  --secondary: #F0A500
+  --primary: #809A6F;
+  --secondary: #A25B5B
 }
 
 .bg-primary-cus{
@@ -19,4 +19,19 @@ body{
   color: black;
   font-family: 'Montserrat', sans-serif;
 }
+.btn-primary{
+  background-color:#A25B5B ;
+  color: #D5D8B5;
+  font-weight: 500;
+  border: none;
+  padding: 10px 15px;
+}
 
+.btn-primary:hover{
+  background-color: #CC9C75;
+}
+.btn-primary:focus{
+  background-color:#A25B5B ;
+  color: #D5D8B5;
+  box-shadow: none;
+}

@@ -62,7 +62,7 @@
   display: flex
 }
 .search-btn{
-    color : #4097FF;
+    color : var(--secondary);
     float : right;
     width : 35px;
     height : 35px;

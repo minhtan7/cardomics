@@ -15,14 +15,6 @@ export const NewsPage = () => {
     const [showModal, setShowModal] = useState(false)
     const [modalData, setModalData] = useState(null)
 
-    // useEffect(() => {
-    //     const getData = async () => {
-    //         const data = await apiService.get("/set_data/LEGENDARY%20DUELISTS:%20DUELS%20FROM%20THE%20DEEP")
-    //         console.log(data)
-    //         setData(data.data.cards)
-    //     }
-    //     getData()
-    // }, [])
     const handleClose = () => setShowModal(false);
     const handleShow = (card) => {
         setShowModal(true)
@@ -54,11 +46,9 @@ export const NewsPage = () => {
     const handleDeck = async () => {
         try {
             const data = await apiService.get("/set_data/LEGENDARY%20DUELISTS:%20DUELS%20FROM%20THE%20DEEP")
-            console.log(data.data.cards)
             const cards = data.data.cards.map((card) => {
                 return { ...card, imageUrl: `https://static-7.studiobebop.net/ygo_data/card_images/${slugify(card.name)}.jpg` }
             })
-            console.log(cards)
             setData(cards)
             setShowDeck(!showDeck)
             setShowEssay(false)
@@ -69,7 +59,7 @@ export const NewsPage = () => {
     }
     const hanndleEssay = () => {
         setShowEssay(!showEssay)
-        setShowDeck(true)
+        setShowDeck(false)
     }
 
     return (
@@ -84,7 +74,7 @@ export const NewsPage = () => {
                     <Carousel.Caption className="caption-bg">
                         <h3>What is Lorem Ipsum?</h3>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <Button className='' onClick={hanndleEssay}>Read more</Button>
+                        <Button className='btn-primary' onClick={hanndleEssay}>Read more</Button>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
