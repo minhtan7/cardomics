@@ -4,7 +4,6 @@ import "./style.css"
 
 export const Header = () => {
     const [scroll, setScroll] = useState(true)
-    var header = document.getElementById("header");
 
     const changeBackground = () => {
         if (window.scrollY >= 66) {
@@ -23,7 +22,7 @@ export const Header = () => {
             <nav id="header" className={`header navbar navbar-expand-lg navbar-dark ${scroll ? "scroll" : ""}`}>
                 <div className="container-fluid">
                     {/* <a className="navbar-brand" href="#">Navbar</a> */}
-                    <Link to="/" class="logo">
+                    <Link to="/" className="logo">
                         <img src="./images/cardomics.png" alt="cardomics" />
                     </Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

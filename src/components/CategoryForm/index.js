@@ -108,7 +108,6 @@ const catForm = {
 
 export const CategoryForm = ({ hello, handleSubmit, set, state }) => {
     const { statistic } = useContext(predictionContext)
-    console.log(statistic)
     return (
         <div>
             <Form onSubmit={handleSubmit}>

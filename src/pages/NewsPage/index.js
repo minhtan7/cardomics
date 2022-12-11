@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Carousel, Button, Container, Row, Col, Modal } from 'react-bootstrap'
 import { Line } from 'react-chartjs-2'
 import { toast } from 'react-toastify'
@@ -53,7 +53,6 @@ export const NewsPage = () => {
             setShowDeck(!showDeck)
             setShowEssay(false)
         } catch (error) {
-            console.log(error)
             toast.warning(error.message)
         }
     }

@@ -124,7 +124,6 @@ const StepTwo = ({ currentStep, statistic, handleDataStepTwo, data }) => {
     if (currentStep !== 2) {
         return null;
     }
-    console.log("cat", statistic)
     return (
         <div id="step-two">
             <Row className='w-100 justify-content-center'>

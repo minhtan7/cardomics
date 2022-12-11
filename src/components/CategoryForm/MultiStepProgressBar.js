@@ -5,11 +5,9 @@ import { ProgressBar, Step } from "react-step-progress-bar";
 
 const MultiStepProgressBar = ({ currentStep }) => {
     let stepPercentage = 0;
-    console.log(currentStep)
     if (currentStep === 1) {
         stepPercentage = 0;
     } else if (currentStep === 2) {
-        console.log("first")
         stepPercentage = 50;
     } else if (currentStep === 3) {
         stepPercentage = 100;

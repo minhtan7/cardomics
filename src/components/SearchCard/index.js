@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { toast } from 'react-toastify'
 import { slugify } from '../../utils/slugify'
 import { slugTranslate } from '../../utils/slugTranslate'
@@ -9,7 +9,6 @@ export const SearchCard = () => {
     const [card, setCard] = useState(null)
     const [error, setError] = useState("error")
     const handleSearch = (e) => {
-        console.log(e.target.value)
         setSearch(e.target.value)
     }
 
@@ -22,7 +21,6 @@ export const SearchCard = () => {
             if (data.status === "fail") {
                 data = await (await fetch(urlTag)).json()
             }
-            console.log(data)
             if (data.status === "fail") {
                 toast.warning("No card or print-tag was found")
                 return
@@ -37,20 +35,10 @@ export const SearchCard = () => {
                 return data.data
             }
         } catch (error) {
-            console.log(error)
             toast.error(error.message)
         }
     }
 
-    // const fetchImage = async (name) => {
-    //     try {
-    //         let url = `https://yugiohprices.com/api/card_image/${name}`
-    //         const data = await fetch(url)
-    //         return data.url
-    //     } catch (error) {
-    //         setError(error.message)
-    //     }
-    // }
     const handleSubmit = async (e) => {
         try {
             e.preventDefault()
@@ -66,13 +54,13 @@ export const SearchCard = () => {
         <section id="search-card" >
             <div className='container px-5'>
                 <form onSubmit={handleSubmit} className="mb-5 text-center position-relative">
-                    <div class="search-box">
-                        <input class="search-txt"
+                    <div className="search-box">
+                        <input className="search-txt"
                             type="text" name="" placeholder="Name or Print-Tag"
                             value={search} onChange={handleSearch}
                         />
-                        <span class="search-btn">
-                            <i class="fas fa-search"></i>
+                        <span className="search-btn">
+                            <i className="fas fa-search"></i>
                         </span>
                     </div>
                 </form>
@@ -102,13 +90,13 @@ export const SearchCard = () => {
                             </div>
                             <div className='col-3 '>
                                 <div className="card-table">
-                                    <table class="table table-dark table-striped">
+                                    <table className="table table-dark table-striped">
                                         <tbody>
                                             {Object.entries(card.price_data.price_data.data.prices)
-                                                .map(price => {
+                                                .map((price, idx) => {
                                                     if (price[0] === 'updated_at')
-                                                        return;
-                                                    return (<tr>
+                                                        return null;
+                                                    return (<tr key={idx}>
                                                         <th>{slugTranslate({ target: "price_tag", slug: price[0] })}</th>
                                                         <td>{price[1].toFixed(2)}</td>
                                                     </tr>
@@ -125,21 +113,6 @@ export const SearchCard = () => {
                     )}
                 </div>
             </div>
-            {/* <div className='container'>
-                <div className='row justify-content-center'>
-                    <div className='col-6 '>
-                        <div className="card  m-auto position-relative" style={{ height: "500px" }}>
-                            <div className='card-bg position-absolute'>
-                                <img src="https://static-7.studiobebop.net/ygo_data/card_images/Cyber_Harpie_Lady.jpg" className="card-img-top" alt="..." />
-                            </div>
-                            <div className="card-body">
-                                <p className="card-text">LDS2-EN067</p>
-                            </div>
-                        </div>
-                    </div>
-                   
-                </div>
-            </div> */}
 
         </section >
     )
