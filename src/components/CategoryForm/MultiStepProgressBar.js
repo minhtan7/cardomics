@@ -1,0 +1,52 @@
+import React from "react";
+import "./MultiStepProgressBar.css";
+import "react-step-progress-bar/styles.css";
+import { ProgressBar, Step } from "react-step-progress-bar";
+
+const MultiStepProgressBar = ({ currentStep }) => {
+    let stepPercentage = 0;
+    console.log(currentStep)
+    if (currentStep === 1) {
+        stepPercentage = 0;
+    } else if (currentStep === 2) {
+        console.log("first")
+        stepPercentage = 50;
+    } else if (currentStep === 3) {
+        stepPercentage = 100;
+    } else {
+        stepPercentage = 0;
+    }
+    return (
+        <ProgressBar percent={stepPercentage}>
+            <Step>
+                {({ accomplished, index }) => (
+                    <div
+                        className={`indexedStep ${accomplished ? "accomplished" : null}`}
+                    >
+                        {index + 1}
+                    </div>
+                )}
+            </Step>
+            <Step>
+                {({ accomplished, index }) => (
+                    <div
+                        className={`indexedStep ${accomplished ? "accomplished" : null}`}
+                    >
+                        {index + 1}
+                    </div>
+                )}
+            </Step>
+            <Step>
+                {({ accomplished, index }) => (
+                    <div
+                        className={`indexedStep ${accomplished ? "accomplished" : null}`}
+                    >
+                        {index + 1}
+                    </div>
+                )}
+            </Step>
+        </ProgressBar>
+    );
+};
+
+export default MultiStepProgressBar;
