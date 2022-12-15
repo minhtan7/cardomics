@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Carousel, Button, Container, Row, Col, Modal } from 'react-bootstrap'
 import { Line } from 'react-chartjs-2'
 import { toast } from 'react-toastify'
@@ -6,6 +6,7 @@ import apiService from '../../apiService'
 import "./style.css"
 import { Chart, registerables } from 'chart.js';
 import { slugify } from '../../utils/slugify'
+import { useLocation, useNavigate } from 'react-router-dom'
 Chart.register(...registerables);
 
 export const NewsPage = () => {
@@ -15,23 +16,39 @@ export const NewsPage = () => {
     const [showModal, setShowModal] = useState(false)
     const [modalData, setModalData] = useState(null)
 
+    const { hash } = useLocation();
+    useEffect(() => {
+        const el = document.getElementById(hash);
+        if (el) {
+            el.scrollIntoView();
+        }
+    }, [hash]);
+
     const handleClose = () => setShowModal(false);
     const handleShow = (card) => {
         setShowModal(true)
         const allowFilter = [
-            "shift", "shift_3", "shift_7", "shift_21",
-            "shift_30", "shift_90", "shift_180", "shift_365"]
+            "shift_365",
+            "shift_180",
+            "shift_90",
+            "shift_30",
+            "shift_21",
+            "shift_7",
+            "shift_3",
+            "shift",
+        ]
         const data = allowFilter.map(e => card.numbers[0]?.price_data.data.prices[e] * 100)
         const state = {
             labels: [
-                " 24 Hours",
-                " 3 Days",
-                " 7 Days",
-                " 21 Days",
-                " 30 Days",
-                " 90 Days",
-                " 180 Days",
-                " 365 Days"],
+                "365 Days",
+                "180 Days",
+                "90 Days",
+                "30 Days",
+                "21 Days",
+                "7 Days",
+                "3 Days",
+                "24 Hours",
+            ],
             datasets: [
                 {
                     id: 1,
@@ -50,13 +67,14 @@ export const NewsPage = () => {
                 return { ...card, imageUrl: `https://static-7.studiobebop.net/ygo_data/card_images/${slugify(card.name)}.jpg` }
             })
             setData(cards)
+
             setShowDeck(!showDeck)
             setShowEssay(false)
         } catch (error) {
             toast.warning(error.message)
         }
     }
-    const hanndleEssay = () => {
+    const handleEssay = () => {
         setShowEssay(!showEssay)
         setShowDeck(false)
     }
@@ -66,33 +84,36 @@ export const NewsPage = () => {
             <Carousel className='mb-5'>
                 <Carousel.Item>
                     <img
-                        className="d-block w-100"
-                        src="/images/carousel-1.jpeg"
+                        className="d-block vh-100 vw-100"
+                        src="https://get.pxhere.com/photo/landscape-tree-nature-forest-grass-mountain-cloud-sky-field-meadow-prairie-sunlight-hill-flower-valley-mountain-range-green-pasture-agriculture-plain-grassland-plantation-plateau-habitat-ecosystem-rural-area-natural-environment-geographical-feature-grass-family-woody-plant-mountainous-landforms-5953.jpg"
                         alt="First slide"
                     />
                     <Carousel.Caption className="caption-bg">
                         <h3>How sustainable are Trading Card Games?</h3>
                         <p>Konami has estimated that there have been 35 billion YuGiOh cards sold worldwide. If we take the estimate of one tree equating to 25,000 cards; Konami has felled 1.5 million trees in its endeavours. That’s a lot of trees, conceptually. However, consider the fact that there are 700 million trees in Ireland alone. There are 3 trillion trees worldwide, approximately 420 trees per person. But this number is rapidly falling due to deforestation...</p>
-
-                        <Button className='btn-primary' onClick={hanndleEssay}>Read more</Button>
+                        <a href='#essay'>
+                            <Button className='btn-primary' onClick={handleEssay}>Read more</Button>
+                        </a>
                     </Carousel.Caption>
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
-                        className="d-block w-100"
+                        className="d-block w-100 vh-100"
                         src="/images/carousel-1.jpeg"
                         alt="First slide"
                     />
                     <Carousel.Caption className="caption-bg">
-                        <h3>What is Lorem Ipsum?</h3>
-                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-                        <Button className='' onClick={handleDeck}>Read more</Button>
+                        <h3>Prediction of cards that might increase in price</h3>
+                        <p>If you wanna know which cards are trending now in the other servers, here’s a list of them. They could combo with the new cards that are coming out in the future and make powerful decks. It will be a good idea to buy these cards now while they are cheap and wait for the price to go up!</p>
+                        <a href='#deck'>
+                            <Button className='' onClick={handleDeck}>Read more</Button>
+                        </a>
                     </Carousel.Caption>
                 </Carousel.Item>
 
             </Carousel>
             {showEssay && (
-                <Container>
+                <Container id="essay">
                     <Row>
                         <h1>How sustainable are Trading Card Games?</h1>
                         <p>Konami has estimated that there have been 35 billion YuGiOh cards sold worldwide. If we take the estimate of one tree equating to 25,000 cards; Konami has felled 1.5 million trees in its endeavours. That’s a lot of trees, conceptually. However, consider the fact that there are 700 million trees in Ireland alone. There are 3 trillion trees worldwide, approximately 420 trees per person. But this number is rapidly falling due to deforestation. Is it morally okay to partake in trading card games? The key factor in answering this question is waste. What happens to the cards when they are sold? As a whole the cards are generally constantly reused. Cards such as “Stygian Dirge” were seen as a useless card just 12 months ago, they sat in a pile in the back of dark closets, 12 months ago you would have said the card is worthless. Then a change in format led to the sudden explosion of the card, it was back in the mainframe. Its value spiked by a factor of 30, literally. There was a clamour to look through the back closest cards, the forgotten souls waiting to be remembered. The card had a new lease of life. Old cards don’t get thrown away, they sit silently waiting to be picked again and sometimes they are, simple as that. The trees that were used to make those cards are still being used to this day essentially. Trading card games have an inherent reusability, even if you have no interest in the game you are unlikely to throw your collection away, at the very least you give it to a cousin or a brother, who can bring new life to the cards. Yet there is still a glaring problem in the YuGiOh marketplace.</p>
@@ -102,7 +123,7 @@ export const NewsPage = () => {
                 </Container>
             )}
             {showDeck && data &&
-                <Container>
+                <Container id="deck">
                     <Row>
                         {data.map((card, index) => (
                             <Col md={3} className='mb-4 single-card position-relative' key={index}>
@@ -127,13 +148,6 @@ export const NewsPage = () => {
                         <h3>{modalData?.name}</h3>
                         <Line
                             data={modalData?.state}
-                        // options={{
-                        //     legend: {
-                        //         display: true,
-                        //         position: 'right'
-                        //     }
-
-                        // }}
                         />
                         <small><b>Price shift Line chart (%)</b></small>
                     </div>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { toast } from 'react-toastify'
+import apiService from '../../apiService'
 import { slugify } from '../../utils/slugify'
 import { slugTranslate } from '../../utils/slugTranslate'
 import './style.css'
@@ -8,6 +9,7 @@ export const SearchCard = () => {
     const [search, setSearch] = useState("")
     const [card, setCard] = useState(null)
     const [error, setError] = useState("error")
+
     const handleSearch = (e) => {
         setSearch(e.target.value)
     }
@@ -15,11 +17,13 @@ export const SearchCard = () => {
 
     const fetchCard = async (search) => {
         try {
-            let urlName = `https://yugiohprices.com/api/get_card_prices/${search}`
-            let urlTag = `https://yugiohprices.com/api/price_for_print_tag/${search}`
-            let data = await (await fetch(urlName)).json()
+            let urlName = `/get_card_prices/${search}`
+            let urlTag = `/price_for_print_tag/${search}`
+            let data = await apiService.get(urlName)
             if (data.status === "fail") {
                 data = await (await fetch(urlTag)).json()
+                data = await apiService.get(urlTag)
+
             }
             if (data.status === "fail") {
                 toast.warning("No card or print-tag was found")
@@ -43,13 +47,16 @@ export const SearchCard = () => {
         try {
             e.preventDefault()
             const data = await fetchCard(search)
-            const image = `https://static-7.studiobebop.net/ygo_data/card_images/${slugify(data.name)}.jpg`
-            setCard({ ...data, imageUrl: image })
+            if (data) {
+                const image = `https://static-7.studiobebop.net/ygo_data/card_images/${slugify(data.name)}.jpg`
+                setCard({ ...data, imageUrl: image })
+            } else {
+                toast.warning("No card or print-tag was found")
+            }
         } catch (error) {
             setError(error.message)
         }
     }
-
     return (
         <section id="search-card" >
             <div className='container px-5'>
@@ -92,7 +99,7 @@ export const SearchCard = () => {
                                 <div className="card-table">
                                     <table className="table table-dark table-striped">
                                         <tbody>
-                                            {Object.entries(card.price_data.price_data.data.prices)
+                                            {card.price_data.price_data.status != "fail" ? <h3 className='p-3'>No prices data found</h3> : Object.entries(card.price_data.price_data.data.prices)
                                                 .map((price, idx) => {
                                                     if (price[0] === 'updated_at')
                                                         return null;

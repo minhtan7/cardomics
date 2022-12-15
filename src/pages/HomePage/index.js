@@ -1,10 +1,14 @@
 import React from 'react'
-import Hero from "../../components/Hero"
-
+import { SearchCard } from '../../components/SearchCard'
+import "./style.css"
 export const HomePage = () => {
     return (
-        <>
-            <Hero />
-        </>
+        <div className='position-relative vw-100 vh-100' >
+            <video className='video-bg' autoPlay muted loop id="myVideo">
+                <source src="https://res.cloudinary.com/tanvo/video/upload/v1670710997/Forest_jhlgzd.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <SearchCard />
+        </div>
     )
 }
