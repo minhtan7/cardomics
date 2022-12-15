@@ -20,10 +20,10 @@ export const SearchCard = () => {
             let urlName = `/get_card_prices/${search}`
             let urlTag = `/price_for_print_tag/${search}`
             let data = await apiService.get(urlName)
+            console.log(data)
             if (data.status === "fail") {
-                data = await (await fetch(urlTag)).json()
                 data = await apiService.get(urlTag)
-
+                console.log(data)
             }
             if (data.status === "fail") {
                 toast.warning("No card or print-tag was found")
@@ -39,6 +39,7 @@ export const SearchCard = () => {
                 return data.data
             }
         } catch (error) {
+            console.log(error)
             toast.error(error.message)
         }
     }
@@ -99,7 +100,7 @@ export const SearchCard = () => {
                                 <div className="card-table">
                                     <table className="table table-dark table-striped">
                                         <tbody>
-                                            {card.price_data.price_data.status != "fail" ? <h3 className='p-3'>No prices data found</h3> : Object.entries(card.price_data.price_data.data.prices)
+                                            {card.price_data.price_data.status === "fail" ? <h3 className='p-3'>No prices data found</h3> : Object.entries(card.price_data.price_data.data.prices)
                                                 .map((price, idx) => {
                                                     if (price[0] === 'updated_at')
                                                         return null;
