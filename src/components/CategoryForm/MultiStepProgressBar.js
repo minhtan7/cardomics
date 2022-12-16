@@ -4,6 +4,9 @@ import "react-step-progress-bar/styles.css";
 import { ProgressBar, Step } from "react-step-progress-bar";
 
 const MultiStepProgressBar = ({ currentStep }) => {
+    //take current step of the form
+    //then translate it to percentage.
+    //there are three step in the form, so we have 0%, 50% and 100%
     let stepPercentage = 0;
     if (currentStep === 1) {
         stepPercentage = 0;

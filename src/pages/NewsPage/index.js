@@ -6,7 +6,7 @@ import apiService from '../../apiService'
 import "./style.css"
 import { Chart, registerables } from 'chart.js';
 import { slugify } from '../../utils/slugify'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 Chart.register(...registerables);
 
 export const NewsPage = () => {
@@ -16,15 +16,24 @@ export const NewsPage = () => {
     const [showModal, setShowModal] = useState(false)
     const [modalData, setModalData] = useState(null)
 
+    //take the hash from the url using useLocation from react-router-dom
     const { hash } = useLocation();
+
     useEffect(() => {
+        //get element with id hash
         const el = document.getElementById(hash);
         if (el) {
+            //scroll to the element whose id is hash
             el.scrollIntoView();
         }
+        // if hash change in the next render, run this useEffect
     }, [hash]);
 
+    //set showModal to false => not showing the modal
     const handleClose = () => setShowModal(false);
+
+    //show Modal, transform data from that single card to 
+    //the provided structure for chart rendering purpose
     const handleShow = (card) => {
         setShowModal(true)
         const allowFilter = [
@@ -37,6 +46,8 @@ export const NewsPage = () => {
             "shift_3",
             "shift",
         ]
+        //loop through allowFilter array to get the return array called data
+        //that contain percentage match with shifting period in allowFilter array in order.
         const data = allowFilter.map(e => card.numbers[0]?.price_data.data.prices[e] * 100)
         const state = {
             labels: [
@@ -60,6 +71,11 @@ export const NewsPage = () => {
 
         setModalData({ ...card, state })
     };
+
+    //show deck:
+    //- fetch data of potential card set
+    //- show deck session, close essay session when run the function
+    //- click twice to close deck
     const handleDeck = async () => {
         try {
             const data = await apiService.get("/set_data/LEGENDARY%20DUELISTS:%20DUELS%20FROM%20THE%20DEEP")
@@ -74,6 +90,8 @@ export const NewsPage = () => {
             toast.warning(error.message)
         }
     }
+    //show essay session, close deck session when click
+    //click twice to close essay
     const handleEssay = () => {
         setShowEssay(!showEssay)
         setShowDeck(false)
@@ -133,7 +151,6 @@ export const NewsPage = () => {
                                     </div>
                                     <div className='single-card-shadow'>
                                         <h3>{card.name}</h3>
-                                        <p>something  here</p>
                                     </div>
                                 </div>
                             </Col>
@@ -146,6 +163,7 @@ export const NewsPage = () => {
 
                     <div className='text-center'>
                         <h3>{modalData?.name}</h3>
+                        {/* use Line component from react chart js to draw chart */}
                         <Line
                             data={modalData?.state}
                         />

@@ -6,6 +6,7 @@ import StepThree from '../../components/CategoryForm/StepThree';
 import StepTwo from '../../components/CategoryForm/StepTwo';
 import "./style.css"
 
+//set up default value for state data
 const defaultData = {
     AV: null,
     SC: null,
@@ -32,16 +33,23 @@ export const PredictionPage = () => {
     const [step, setStep] = useState(1)
     const [data, setData] = useState(defaultData)
 
+    //move to next step by step +1; 
+    //3 is the last step can be set
     const next = () => {
         setStep(step >= 2 ? 3 : step + 1);
     }
+    //move to previous step by step - 1
     const prev = () => {
         setStep(step <= 1 ? 1 : step - 1);
     }
+    //go to step one, get data to default value by
+    //putting object defaultData to setData
     const restart = () => {
         setStep(1)
         setData(defaultData)
     }
+
+    //return nex or result button only if step doesn't equal to 3
     const nextButton = () => {
         if (step < 3) {
             return (
@@ -53,6 +61,8 @@ export const PredictionPage = () => {
 
         return null;
     }
+
+    //return either previous or previous and result or null button base on current step
     const previousButton = () => {
         if (step === 2) {
             return (
@@ -74,10 +84,13 @@ export const PredictionPage = () => {
         }
         return null;
     }
+    // the event that happens when you select an item in the drop down menu.
+    // it sets MyChoice to the targeted value
     const handleStatistic = (e) => {
         setStatistic(e.target.value)
     }
 
+    // update value from input group in step two to state data
     const handleDataStepTwo = (e) => {
         setData({ ...data, [e.target.name]: e.target.value })
     }
@@ -90,6 +103,7 @@ export const PredictionPage = () => {
                 Your browser does not support the video tag.
             </video>
             <Container className='form-wrapper'>
+                {/*  MultiStepProgressBar component render the progress bar based on current step*/}
                 <MultiStepProgressBar currentStep={step} />
                 <StepOne
                     currentStep={step}
@@ -109,11 +123,7 @@ export const PredictionPage = () => {
                 />
                 {previousButton()}
                 {nextButton()}
-
             </Container>
-
-
         </section>
-
     )
 }

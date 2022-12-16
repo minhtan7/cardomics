@@ -11,8 +11,9 @@ import { PredictionPage } from './pages/PredictionPage';
 function App() {
   return (
     <div className="App">
+      {/* Set up router */}
       <Routes>
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<MainLayout />}> {/*Layout for the app  */}
           <Route index element={<HomePage />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/prediction" element={<PredictionPage />} />

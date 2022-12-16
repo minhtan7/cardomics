@@ -1,5 +1,7 @@
 import React from 'react'
 
+// this function calculates the result. Every option that has been sumbited
+// has it's own unique formula that computates the correct answer
 const calc = ({ data, myChoice }) => {
     const {
         AV,
@@ -80,14 +82,17 @@ const calc = ({ data, myChoice }) => {
 }
 
 const StepThree = ({ currentStep, data, statistic }) => {
+    // return null if current step is not equal to step three
+    // this make sure we render right component at a step
     if (currentStep !== 3) {
         return null;
     }
     const result = calc({ data, myChoice: statistic })
     return (
         <div id="step-three">
+            {/* Show the result */}
             <h1 style={{ color: "var(--secondary)" }}>Result is:</h1>
-            <h1>{result && result !== Infinity ? result : "Wrong input. Please try again!"}</h1>
+            <h1>{result && result !== Infinity ? result.toFixed(2) : "Wrong input. Please try again!"}</h1>
         </div>
     )
 }

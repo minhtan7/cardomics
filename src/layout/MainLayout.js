@@ -7,9 +7,9 @@ const MainLayout = () => {
 
     return (
         <>
-            <Toast />
+            <Toast /> {/* Toast component that will toast the message on the screen after some actions */}
             <Header />
-            <Outlet />
+            <Outlet /> {/* Outlet component will be replace by others components that define in the Router*/}
 
         </>
     )

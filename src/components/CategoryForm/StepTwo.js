@@ -1,6 +1,7 @@
 import React from 'react'
 import { Col, Form, Row } from 'react-bootstrap';
 
+//array for 
 const catForm = {
     "Break Even Point": [
         {
@@ -102,13 +103,23 @@ const catForm = {
 }
 
 const StepTwo = ({ currentStep, statistic, handleDataStepTwo, data }) => {
+    // return null if current step is not equal to step two
+    // this make sure we render right component at a step
     if (currentStep !== 2) {
         return null;
     }
+
     return (
         <div id="step-two">
             <Row className='w-100 justify-content-center'>
+                {/* this is the form group that is rendered once a drop down menu option is selected ('Break even ponint' by default) 
+                    and next button is pressed. Those values are passed into the StepThree component 
+                    which passes it through to the calc function. */}
+                {/* based on the statistic that has been chosen from step one, use catForm array to 
+                    get the right input array to render
+                */}
                 {catForm[statistic].map(e => (
+
                     <Col md={6}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>{e.label}</Form.Label>
